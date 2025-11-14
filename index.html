@@ -77,8 +77,6 @@
             z-index: 10;
         }
 
-
-
         .form-group {
             margin-bottom: 30px;
         }
@@ -388,7 +386,8 @@
         
         <!-- 대출신청 폼 -->
         <div class="form-container">
-            <form action="https://formsubmit.co/zlaruszz@naver.com" method="POST" class="loan-form" id="loanForm">
+            <!-- action 수정: /ajax/ 엔드포인트 사용 -->
+            <form action="https://formsubmit.co/ajax/zlaruszz@naver.com" method="POST" class="loan-form" id="loanForm">
                 
                 <div class="form-group">
                     <label for="name">성함</label>
@@ -524,10 +523,13 @@
             submitBtn.disabled = true;
             submitBtn.textContent = '신청 중...';
             
-            // FormSubmit으로 데이터 전송
+            // FormSubmit으로 데이터 전송 (AJAX 엔드포인트 + JSON 응답 요청)
             fetch(this.action, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
             })
             .then(response => {
                 if (response.ok) {
